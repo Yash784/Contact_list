@@ -1,0 +1,57 @@
+
+<!-- EJS IS TEMPLATE ENGINE FOR JAVA SCRIPT. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title%> 
+        <!-- we can also write locals.title instead of title. -->
+        <!-- Here whenever we need to show something or print something then -->
+        <!-- an equal to is required. -->
+    </title>
+    <!-- here title is the variable. -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- our css file should be below all other css files so that we can override it. -->
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <h1 id="page_heading">
+        <i class="fas fa-address-book"></i>
+        Contact list
+    </h1>
+    <div id="container">
+        <ul>
+            <%for(let i of contact_list){%>
+                <li>
+                    <div class="details">
+                        <p id="name"><%= i.name%></p> 
+                        <p id="phone"><%= i.phone%></p>
+                        <!-- since we need to print name and phone , so we have to include equal to sign. -->
+                    </div>
+                    <div class="delete-button">
+                        <a href="/delete-contact/?id=<%= i._id %>"> 
+                            <!-- above is the syntax to use params. -->
+                            <i class="fas fa-window-close"></i>
+                        </a>
+                    </div>
+                </li>
+            <%} %>
+        </ul>
+    </div>
+    <form  id = "new-contact-form" action="/create-contact" method="post">
+        <!-- middleware change the  data which is sent by this form into objects. -->
+        <!-- here action is used for where to send the data. -->
+        <!-- we used post as request type because we are sending the data or changing the data to the server side. -->
+        <input type="text" name = "name" placeholder="Enter Name" required>
+        <input type="number" name = "phone" placeholder="Enter Phone Number." required>
+
+        <button  id="button" type="submit">Add Contact</button>
+        <!-- after submitting it goes to the action route. -->
+    </form>
+    <script type="text/javascript" src="/js/home.js"></script>
+</body>
+</html>
